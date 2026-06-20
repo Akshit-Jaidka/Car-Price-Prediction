@@ -228,11 +228,16 @@ st.markdown(
 # ============================================================
 # LOAD MODEL ARTIFACTS  (unchanged)
 # ============================================================
-model = pickle.load(open("Car_sale_price_model.pkl", "rb"))
-ct = pickle.load(open("ct.pkl", "rb"))
-num_imputer = pickle.load(open("num_imputer.pkl", "rb"))
-cat_imputer = pickle.load(open("cat_imputer.pkl", "rb"))
+@st.cache_resource
+def load_artifacts():
+    model = pickle.load(open("Car_sale_price_model.pkl", "rb"))
+    ct = pickle.load(open("ct.pkl", "rb"))
+    num_imputer = pickle.load(open("num_imputer.pkl", "rb"))
+    cat_imputer = pickle.load(open("cat_imputer.pkl", "rb"))
 
+    return model, ct, num_imputer, cat_imputer
+
+model, ct, num_imputer, cat_imputer = load_artifacts()
 current_year = datetime.now().year
 
 # ============================================================
